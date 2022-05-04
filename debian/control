@@ -1,0 +1,26 @@
+Source: ivsc-driver
+Section: kernel
+Priority: optional
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: You-Sheng Yang <vicamo@gmail.com>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-modaliases,
+ dkms,
+ quilt,
+Standards-Version: 4.5.0
+Homepage: https://gitlab.com/intel/ivsc-driver
+Vcs-Browser: https://gitlab.com/intel/ivsc-driver/tree/main
+Vcs-Git: https://gitlab.com/intel/ivsc-driver.git
+
+Package: intel-vsc-dkms
+Architecture: amd64
+Depends:
+ dkms,
+ libc6-dev | libc-dev,
+ ${misc:Depends},
+Provides: ivsc-modules
+Description: Intel Vision Sensing Controller(IVSC) driver
+ This package provides kernel drivers for Intel Vision Sensing Controller(IVSC)
+ on Intel Alder Lake platforms.

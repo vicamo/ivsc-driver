@@ -1,0 +1,20 @@
+From: "You-Sheng Yang (vicamo)" <vicamo.yang@canonical.com>
+Date: Fri, 13 May 2022 02:43:02 +0800
+Subject: [PATCH] dkms: use debian package version as PACKAGE_VERSION
+
+Signed-off-by: You-Sheng Yang (vicamo) <vicamo.yang@canonical.com>
+---
+ dkms.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dkms.conf b/dkms.conf
+index 696e476..4ae6761 100644
+--- a/dkms.conf
++++ b/dkms.conf
+@@ -1,5 +1,5 @@
+ PACKAGE_NAME="ivsc-driver"
+-PACKAGE_VERSION="1.0.0"
++PACKAGE_VERSION="#MODULE_VERSION#"
+ 
+ MAKE="make KERNELRELEASE=$kernelver KERNEL_SRC=$kernel_source_dir"
+ CLEAN="make KERNELRELEASE=$kernelver KERNEL_SRC=$kernel_source_dir clean"
