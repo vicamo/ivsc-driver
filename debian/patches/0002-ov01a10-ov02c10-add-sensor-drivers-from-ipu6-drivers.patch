@@ -6,15 +6,15 @@ While these two modules actually depend on ivsc, they're moved into this
 repository instead.
 
 The source files were taken from
-https://github.com/intel/ipu6-drivers/commit/8357dee9ba6eeda216ccca95eda36262cbbd0f14.
+https://github.com/intel/ipu6-drivers/commit/a0351ce29ca876d59e979767c5fdf1190512237f.
 
 Signed-off-by: You-Sheng Yang (vicamo) <vicamo.yang@canonical.com>
 ---
  Makefile                    |    6 +
  dkms.conf                   |    6 +
  drivers/media/i2c/ov01a10.c |  978 +++++++++++++++++++++++++++++++++++++++
- drivers/media/i2c/ov02c10.c | 1074 +++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 2064 insertions(+)
+ drivers/media/i2c/ov02c10.c | 1077 +++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 2067 insertions(+)
  create mode 100644 drivers/media/i2c/ov01a10.c
  create mode 100644 drivers/media/i2c/ov02c10.c
 
@@ -1037,10 +1037,10 @@ index 00000000..29c41ef
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
 new file mode 100644
-index 00000000..c6158cb
+index 00000000..04004b7
 --- /dev/null
 +++ b/drivers/media/i2c/ov02c10.c
-@@ -0,0 +1,1074 @@
+@@ -0,0 +1,1077 @@
 +// SPDX-License-Identifier: GPL-2.0
 +// Copyright (c) 2022 Intel Corporation.
 +
@@ -1367,6 +1367,9 @@ index 00000000..c6158cb
 +	{0x394d, 0x08},
 +	{0x394c, 0x06},
 +	{0x394b, 0x06},
++	// OV update below two regs to improve white dots
++	{0x3774, 0x18},
++	{0x3776, 0x08},
 +	// key setting for MCLK=19.2MCLK 1932x1092 GRBG 1 lane 30fps
 +	{0x0303, 0x05},
 +	{0x0305, 0x90},
