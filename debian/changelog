@@ -1,7 +1,7 @@
-ivsc-driver (0~git202205110052.b8c22f42-0ubuntu1) kinetic; urgency=low
+ivsc-driver (0~git202208022245.1a3bb6ee-0ubuntu1) kinetic; urgency=low
 
   * Initial release. (LP: #1972106)
     - ov01a10: ov02c10: add sensor drivers from ipu6-drivers
     - compat: fix FTBFS against v6.0-rcX
 
- -- You-Sheng Yang <vicamo.yang@canonical.com>  Fri, 13 May 2022 15:44:13 +0800
+ -- You-Sheng Yang <vicamo.yang@canonical.com>  Wed, 24 Aug 2022 15:05:57 +0800
