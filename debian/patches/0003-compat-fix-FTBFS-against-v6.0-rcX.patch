@@ -6,8 +6,8 @@ Signed-off-by: You-Sheng Yang (vicamo) <vicamo.yang@canonical.com>
 ---
  drivers/i2c/busses/i2c-ljca.c | 49 ++++++++++++++++++++++++++++++++-----------
  drivers/mfd/ljca.c            | 33 +++++++++++++++++++++--------
- drivers/misc/mei/spi-vsc.c    | 22 +++++++++++++++++--
- 3 files changed, 81 insertions(+), 23 deletions(-)
+ drivers/misc/mei/spi-vsc.c    | 24 ++++++++++++++++++---
+ 3 files changed, 82 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-ljca.c b/drivers/i2c/busses/i2c-ljca.c
 index ea2f4bb..893ff87 100644
@@ -101,7 +101,7 @@ index ea2f4bb..893ff87 100644
  
  static int ljca_i2c_probe(struct platform_device *pdev)
 diff --git a/drivers/mfd/ljca.c b/drivers/mfd/ljca.c
-index 430bb95..ce37823 100644
+index 24404ff..7146cb9 100644
 --- a/drivers/mfd/ljca.c
 +++ b/drivers/mfd/ljca.c
 @@ -16,6 +16,7 @@
@@ -112,7 +112,7 @@ index 430bb95..ce37823 100644
  
  enum ljca_acpi_match_adr {
  	LJCA_ACPI_MATCH_GPIO,
-@@ -222,24 +223,38 @@ static int try_match_acpi_hid(struct acpi_device *child,
+@@ -225,24 +226,38 @@ static int try_match_acpi_hid(struct acpi_device *child,
  	return 0;
  }
  
@@ -161,17 +161,18 @@ index 430bb95..ce37823 100644
  	return 0;
  }
 diff --git a/drivers/misc/mei/spi-vsc.c b/drivers/misc/mei/spi-vsc.c
-index 3c59c5a..42fe7bf 100644
+index c30d9ee..95b36a1 100644
 --- a/drivers/misc/mei/spi-vsc.c
 +++ b/drivers/misc/mei/spi-vsc.c
-@@ -34,6 +34,19 @@ static const struct acpi_gpio_mapping mei_vsc_acpi_gpios[] = {
+@@ -35,6 +35,20 @@ static const struct acpi_gpio_mapping mei_vsc_acpi_gpios[] = {
  	{}
  };
  
 +static int find_cvfd_child_adev_entry(struct acpi_device *adev, void *data)
 +{
 +	if (!strcmp(CVFD_ACPI_ID_TGL, acpi_device_hid(adev)) ||
-+	    !strcmp(CVFD_ACPI_ID_ADL, acpi_device_hid(adev))) {
++	    !strcmp(CVFD_ACPI_ID_ADL, acpi_device_hid(adev)) ||
++	    !strcmp(CVFD_ACPI_ID_RPL, acpi_device_hid(adev))) {
 +		if (data)
 +			*(struct acpi_device **)data = adev;
 +
@@ -184,14 +185,15 @@ index 3c59c5a..42fe7bf 100644
  static struct acpi_device *find_cvfd_child_adev(struct acpi_device *parent)
  {
  	struct acpi_device *adev;
-@@ -41,11 +54,16 @@ static struct acpi_device *find_cvfd_child_adev(struct acpi_device *parent)
+@@ -42,12 +56,16 @@ static struct acpi_device *find_cvfd_child_adev(struct acpi_device *parent)
  	if (!parent)
  		return NULL;
  
 +#if (LINUX_VERSION_CODE < KERNEL_VERSION(6,0,0))
  	list_for_each_entry (adev, &parent->children, node) {
 -		if (!strcmp(CVFD_ACPI_ID_TGL, acpi_device_hid(adev)) ||
--		    !strcmp(CVFD_ACPI_ID_ADL, acpi_device_hid(adev)))
+-		    !strcmp(CVFD_ACPI_ID_ADL, acpi_device_hid(adev)) ||
+-		    !strcmp(CVFD_ACPI_ID_RPL, acpi_device_hid(adev)))
 +		if (find_cvfd_child_adev_entry(adev, NULL))
  			return adev;
  	}
