@@ -1,1 +1,2 @@
 0001-dkms-use-debian-package-version-as-PACKAGE_VERSION.patch
+0002-dkms-drop-obsoleted-REMAKE_INITRD.patch
