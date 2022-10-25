@@ -1,0 +1,38 @@
+From: Hans de Goede <hdegoede@redhat.com>
+Date: Sat, 22 Oct 2022 00:03:39 +0200
+Subject: i2c: ljca: Call acpi_dev_clear_dependencies()
+
+Call acpi_dev_clear_dependencies() to mark _DEP ACPI dependencies on
+the I2C controller as satisfied so that acpi_dev_ready_for_enumeration()
+for the I2C device nodes in APCI will return true once the I2C controller
+is registered.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+(cherry picked from commit c5aa0b65a6fb3cca7ee3b6fae093cfadfdd3a5cf)
+Signed-off-by: You-Sheng Yang (vicamo) <vicamo.yang@canonical.com>
+---
+ drivers/i2c/busses/i2c-ljca.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-ljca.c b/drivers/i2c/busses/i2c-ljca.c
+index b7dbb55..79987fd 100644
+--- a/drivers/i2c/busses/i2c-ljca.c
++++ b/drivers/i2c/busses/i2c-ljca.c
+@@ -427,7 +427,16 @@ static int ljca_i2c_probe(struct platform_device *pdev)
+ 		return -EIO;
+ 	}
+ 
+-	return i2c_add_adapter(&ljca_i2c->adap);
++	ret = i2c_add_adapter(&ljca_i2c->adap);
++	if (ret)
++		return ret;
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 17, 0)
++	if (has_acpi_companion(&ljca_i2c->adap.dev))
++		acpi_dev_clear_dependencies(ACPI_COMPANION(&ljca_i2c->adap.dev));
++#endif
++
++	return 0;
+ }
+ 
+ static int ljca_i2c_remove(struct platform_device *pdev)

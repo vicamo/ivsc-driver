@@ -1,6 +1,17 @@
+ivsc-driver (0~git202209152342.99a53bd7-0ubuntu1+pr24.1) kinetic; urgency=low
+
+  [Hans de Goede]
+
+  * ivsc usb and probe order fix
+    - mfd: ljca: Fix "BUG: sleeping function called from invalid context"
+    - i2c: ljca: Call acpi_dev_clear_dependencies()
+
+ -- You-Sheng Yang <vicamo.yang@canonical.com>  Tue, 25 Oct 2022 09:43:18 +0800
+
 ivsc-driver (0~git202209152342.99a53bd7-0ubuntu1) kinetic; urgency=low
 
   * Initial release. (LP: #1972106)
     - dkms: use debian package version as PACKAGE_VERSION
+
 
  -- You-Sheng Yang <vicamo.yang@canonical.com>  Mon, 19 Sep 2022 15:37:41 +0800

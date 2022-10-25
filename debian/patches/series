@@ -1,2 +1,4 @@
 0001-dkms-use-debian-package-version-as-PACKAGE_VERSION.patch
 0002-dkms-drop-obsoleted-REMAKE_INITRD.patch
+0003-mfd-ljca-Fix-BUG-sleeping-function-called-from-inval.patch
+0004-i2c-ljca-Call-acpi_dev_clear_dependencies.patch
